@@ -24,12 +24,11 @@ git clone --depth=1 -b main https://github.com/jjm2473/openwrt-apps package/open
 
 # 科学上网插件
 rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box}
-rm -rf package/diy/luci-app-ota
 git_sparse_clone master https://github.com/vernesong/OpenClash luci-app-openclash
 git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall-packages
 git clone https://github.com/xiaorouji/openwrt-passwall package/passwall
-git_sparse_clone main https://github.com/s71557/istoreos-ota luci-app-ota
-git_sparse_clone main https://github.com/zijieKwok/github-ota fw_download_tool
+git clone https://github.com/sbwml/openwrt_helloworld package/helloworld
+
 
 ### 个性化设置
 sed -i 's/iStoreOS/StoneOS/' package/istoreos-files/files/etc/board.d/10_system
@@ -43,14 +42,9 @@ sed -i "s/DISTRIB_REVISION='*.*'/DISTRIB_REVISION=' By Stone'/g" package/base-fi
 # TTYD
 sed -i 's/services/system/g' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
 
-# 修改默认密码
-# sed -i 's/root:::0:99999:7:::/root:$1$5mjCdAB1$Uk1sNbwoqfHxUmzRIeuZK1:0:0:99999:7:::/g' package/base-files/files/etc/shadow
-
 # 更换默认背景
 cp -f $GITHUB_WORKSPACE/images/bg1.jpg feeds/third/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
 
-# StoneOS-settings
-git clone --depth=1 -b main https://github.com/s71557/istoreos-settings package/default-settings
 # 更新Feeds
 ./scripts/feeds update -a
 ./scripts/feeds install -a
