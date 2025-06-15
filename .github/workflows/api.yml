@@ -1,0 +1,76 @@
+name: 更新ota.json
+
+on:
+  workflow_dispatch:  # 手动触发
+  schedule:
+   # - cron: '0 6 * * *'  # 每天凌晨 6 点自动执行一次（可改）
+    
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 检出主分支
+        uses: actions/checkout@v4
+        with:
+          ref: api
+
+      - name: 获取最新发布信息
+        id: get_release
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const latest = await github.rest.repos.getLatestRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+
+            const asset = latest.data.assets.find(a => 
+              a.name === 'stoneos-x86-64-generic-squashfs-combined-efi.img.gz');
+
+            if (!asset) {
+              core.setFailed("Target firmware not found in the latest release.");
+              return;
+            }
+
+            const crypto = require('crypto');
+            const response = await fetch(asset.browser_download_url);
+            const buffer = await response.arrayBuffer();
+            const sha256 = crypto.createHash('sha256').update(Buffer.from(buffer)).digest('hex');
+
+            const workflowRun = await github.rest.actions.getWorkflowRun({
+             owner: context.repo.owner,
+             repo: context.repo.repo,
+             run_id: process.env.GITHUB_RUN_ID,
+            });
+
+            const workflowStartTime = workflowRun.data.run_started_at;
+            const buildDate = Math.floor(new Date(workflowStartTime).getTime() / 1000);
+
+            // 🔧 在这里添加代理前缀
+            const proxiedUrl = 'https://github.71557.dpdns.org/' + asset.browser_download_url;
+
+            const json = {
+              "x86_64": [
+                {
+                  "build_date": String(buildDate),
+                  "sha256sum": sha256,
+                  "url": proxiedUrl  // 使用带代理的URL
+                }
+              ]
+            };
+
+            const fs = require('fs');
+            fs.mkdirSync('tmp-api', { recursive: true });
+            fs.writeFileSync('tmp-api/fw.json', JSON.stringify(json, null, 4));
+
+      - name: 检出API分支
+        run: |
+          git fetch origin api:api
+          git checkout api
+          cp tmp-api/fw.json .
+          git config user.name "actions-user"
+          git config user.email "actions@github.com"
+          git add fw.json
+          git commit -m "Update fw.json @ $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
+          git push origin api
