@@ -29,6 +29,9 @@ git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwal
 git clone https://github.com/xiaorouji/openwrt-passwall package/passwall
 git clone https://github.com/sbwml/openwrt_helloworld package/helloworld
 
+#OTA
+git_sparse_clone main https://github.com/s71557/istoreos-ota luci-app-ota
+git_sparse_clone main https://github.com/zijieKwok/github-ota fw_download_tool
 
 ### 个性化设置
 sed -i 's/iStoreOS/StoneOS/' package/istoreos-files/files/etc/board.d/10_system
@@ -44,6 +47,9 @@ sed -i 's/services/system/g' feeds/luci/applications/luci-app-ttyd/root/usr/shar
 
 # 更换默认背景
 cp -f $GITHUB_WORKSPACE/images/bg1.jpg feeds/third/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
+
+# iStoreOS-settings
+git clone --depth=1 -b main https://github.com/s71557/istoreos-settings package/default-settings
 
 # 更新Feeds
 ./scripts/feeds update -a
