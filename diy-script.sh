@@ -51,6 +51,9 @@ sed -i "s/DISTRIB_REVISION='*.*'/DISTRIB_REVISION=' By Stone'/g" package/base-fi
 # TTYD
 sed -i 's/services/system/g' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
 
+#添加opkg源
+cp -f $GITHUB_WORKSPACE/distfeeds.conf files/etc/opkg/distfeeds.conf
+
 # 更换默认背景
 cp -f $GITHUB_WORKSPACE/images/bg1.jpg feeds/third/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
 
