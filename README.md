@@ -10,8 +10,6 @@
 | PassWall                 | ✅   | openclash                   | ✅   | MosDNS                 | ✅   | mwan3负载均衡                 | ✅   |
 | HomeProxy                | ✅   | Nikki                       | ✅   | 锐捷认证                | ✅   | 支持OTA在线升级                | ✅  |
 
-✅ 可用 ❌ 不可用
-
 ## 默认配置
 
 - IP: `http://192.168.100.1` or `http://iStoreOS.lan/`
