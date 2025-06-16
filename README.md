@@ -5,14 +5,20 @@
 ![支持设备](https://img.shields.io/badge/支持设备:-blueviolet.svg?style=flat-square)  ![X86-64](https://img.shields.io/badge/X86-64-blue.svg?style=flat-square) ![X86-64EFI](https://img.shields.io/badge/X86-64EFI-blue.svg?style=flat-square) 
 
 ## 功能特性
+| 内置插件                 | 状态 |
+|:------------------------:|:----:|
+| PassWall                 | ✅   |
+| HomeProxy                | ✅   |
+| openclash                | ✅   |
+| Nikki                | ✅   |
+| MosDNS                   | ✅   |
+| mwan3负载均衡                 | ✅   |
+| 锐捷认证                | ✅   |
+| 支持OTA在线升级                | ✅  |
 
-- 添加 OpenClash
-- 添加 PassWall
-- 添加 HomeProxy
-- 添加 WireGuard
-- 添加 Nikki
-- 添加 MosDns
-- 添加 锐捷认证
+✅ 可用
+
+❌ 不可用
 
 ## 默认配置
 
