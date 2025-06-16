@@ -1,8 +1,8 @@
 {
     "x86_64": [
         {
-            "build_date": "1750048271",
-            "sha256sum": "23337fdb6defb79fdf5756ba1515a5dc3419fa6eb2d37c3bda3aa40854313fbc",
+            "build_date": "1750063107",
+            "sha256sum": "dab0d82fc2897ebf0aff3a14cee4c94ec770ab4834c30e8d7dc55e92467ce90d",
             "url": "https://github.71557.dpdns.org/https://github.com/s71557/iStoreOS-Actions/releases/download/20250616/stoneos-x86-64-generic-squashfs-combined-efi.img.gz"
         }
     ]
