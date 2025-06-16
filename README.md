@@ -10,6 +10,9 @@
 - 添加 PassWall
 - 添加 HomeProxy
 - 添加 WireGuard
+- 添加 Nikki
+- 添加 MosDns
+- 添加 锐捷认证
 
 ## 默认配置
 
